@@ -1,18 +1,38 @@
 import logo from '../assets/logo.png'
 import heroImage from "../assets/educator.svg";
-import feature1 from "../assets/educator.svg";
-import feature2 from "../assets/educator.svg";
-import feature3 from "../assets/educator.svg";
+import feature1 from "../assets/reading.png";
+import feature2 from "../assets/store.png";
+import feature3 from "../assets/business.png";
+import { ToastContainer, toast } from 'react-toastify';
 import { useState } from "react";
+import Dropdown from '@/components/Dropdown';
 
 const HomePage = () => {
-  const problems = [
-    "Unclear lecture explanations and late course materials",
-    "No digital platform for student entrepreneurs",
-    "Difficulty recovering lost items on campus",
-    "Struggles with final year projects",
-    "Challenges securing IT placements",
-    "No centralized campus solution",
+  const solutions = [
+    {
+      title: "Unclear lecture explanations and late course materials",
+      description: "Detailed Solutions of problems ..."
+    },
+    {
+      title: "No digital platform for student entrepreneurs",
+      description: "Detailed Solutions of problems ..."
+    },
+    {
+      title: "Difficulty recovering lost items on campus",
+      description: "Detailed Solutions of problems ..."
+    },
+    {
+      title: "Struggles with final year projects",
+      description: "Detailed Solutions of problems ..."
+    },
+    {
+      title: "Challenges securing IT placements",
+      description: "Detailed Solutions of problems ..."
+    },
+    {
+      title: "No centralized campus solution",
+      description: "Detailed Solutions of problems ..."
+    },
   ];
 
   const features = [
@@ -67,8 +87,18 @@ const HomePage = () => {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [position, setPosition] = useState(1247);
+  const notify = () => toast(email &&`✅  Joined the Starel WaitList`, {
+                              position: "bottom-center",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: false,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "colored",
+    });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Email submitted:', email);
     setIsSubmitted(true);
@@ -93,8 +123,8 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-indigo-50">
-      <nav className="w-full flex justify-between items-center lg:px-16 px-6 fixed top-0 p-4 bg-gradient-to-r from-purple-700 to-indigo-700 text-white z-50">
-        <div className="flex items-center gap-3">
+      <nav className="w-full flex justify-between items-center lg:px-16 px-6 fixed top-0 p-4 bg-gradient-to-r from-purple-700/50 to-indigo-700/50 backdrop-blur-xl text-white z-50">
+        <div className="flex items-center gap-3 ">
           <div className="bg-white rounded-xl p-2 shadow-sm">
             <img src={logo} alt="logo" className="w-6 h-6" />
           </div>
@@ -106,27 +136,28 @@ const HomePage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="lg:py-40 py-20 lg:px-20 px-4 mx-auto bg-gradient-to-r from-purple-700 to-indigo-700">
+      <section className="parkinsans flex flex-wrap justify-center items-center gap-4 lg:py-40 py-20 lg:px-20 px-4 mx-auto bg-gradient-to-r from-purple-700 to-indigo-700">
         <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="lg:w-1/2">
+          <div className="lg:w-1/2 text-center">
             <h1 className="text-5xl font-bold text-black mb-6 leading-tight">
               The{" "}
-              <span className="bg-gradient-to-r from-white to-white bg-clip-text text-transparent">
+              <span className="nata-sans bg-gradient-to-r from-white to-white bg-clip-text text-transparent">
                 All-In-One Platform
               </span>{" "}
               for Nigerian Students
             </h1>
-            <p className="text-xl text-white mb-8">
+            <p className="text-white mb-8 md:text-[16px] text-xl">
               Starel combines AI-powered academic support, campus marketplace,
               and student services in one intuitive platform - starting with
               FUTA and expanding nationwide.
             </p>
 
           </div>
-          <div className="lg:w-1/2">
+          <div className="lg:w-1/2 hidden lg:block">
             <img src={heroImage} alt="Starel Platform Preview" className="" />
           </div>
         </div>
+        <button className="w-full h-14 max-w-[1000px] cursor-pointer transition-all duration-150 hover:saturate-150 shadow shadow-gray-200/50 outline-gray-300 rounded-full flex justify-center bg-gradient-to-r from-violet-500 mt-10 to-gray-100 items-center">Join the WaitList</button>
       </section>
 
       {/* Problem Section */}
@@ -136,29 +167,11 @@ const HomePage = () => {
             Problems We Solve for{" "}
             <span className="text-purple-600">Nigerian Students</span>
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {problems.map((problem, index) => (
-              <div
-                key={index}
-                className="bg-purple-50 p-6 rounded-lg border border-purple-100"
-              >
-                <div className="text-purple-600 mb-3">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    ></path>
-                  </svg>
-                </div>
-                <p className="text-gray-700">{problem}</p>
-              </div>
+          <div className="flex justify-center items-center gap-4 flex-wrap">
+            {solutions.map((items)=>(
+              <>
+              <Dropdown title={items.title} children={items.description}/>
+              </>
             ))}
           </div>
         </div>
@@ -197,36 +210,36 @@ const HomePage = () => {
                         {feature.description}
                       </p>
                       <ul className="space-y-3">
-                        {Array.isArray(feature.items[0])
-                          ? feature.items.map((item, i) => (
-                              <li key={i} className="flex items-start">
-                                <svg
-                                  className="w-5 h-5 text-purple-500 mt-0.5 mr-2"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M5 13l4 4L19 7"
-                                  />
-                                </svg>
-                                <span>{item}</span>
-                              </li>
-                            ))
-                          : feature.items.map((item, i) => (
-                              <div
-                                key={i}
-                                className="bg-purple-50 p-4 rounded-lg"
+                        {feature.items.map((item, i) =>
+                          typeof item === "string" ? (
+                            <li key={i} className="flex items-start">
+                              <svg
+                                className="w-5 h-5 text-purple-500 mt-0.5 mr-2"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
                               >
-                                <h4 className="font-bold text-purple-700">
-                                  {item.title}
-                                </h4>
-                                <p className="text-gray-600">{item.desc}</p>
-                              </div>
-                            ))}
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M5 13l4 4L19 7"
+                                />
+                              </svg>
+                              <span>{item}</span>
+                            </li>
+                          ) : (
+                            <div
+                              key={i}
+                              className="bg-purple-50 p-4 rounded-lg"
+                            >
+                              <h4 className="font-bold text-purple-700">
+                                {item.title}
+                              </h4>
+                              <p className="text-gray-600">{item.desc}</p>
+                            </div>
+                          )
+                        )}
                       </ul>
                     </div>
                   </div>
@@ -271,7 +284,7 @@ const HomePage = () => {
 
             {/* Form Column */}
             <div className="lg:w-3/5">
-              <div className="bg-white p-8 rounded-xl shadow-sm border border-purple-100">
+              <div className="bg-white lg:mt-12 p-8 rounded-xl shadow-sm border border-purple-100">
                 {!isSubmitted ? (
                   <>
                     <h3 className="text-2xl font-bold mb-4 text-gray-900">Secure Your Spot</h3>
@@ -290,17 +303,33 @@ const HomePage = () => {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           className="w-full px-4 py-3 bg-purple-50 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
-                          placeholder="your.email@futa.edu.ng"
+                          placeholder="example@gmail.com"
                           required
                         />
                       </div>
                       
                       <button
                         type="submit"
-                        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-4 rounded-lg transition"
+                        onClick={notify}
+                        className="w-full cursor-pointer bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-4 rounded-lg transition"
                       >
                         Join Waitlist
                       </button>
+                      {email &&
+                        <ToastContainer 
+                          position="bottom-center"
+                          autoClose={5000}
+                          hideProgressBar={false}
+                          newestOnTop={false}
+                          closeOnClick={false}
+                          rtl={false}
+                          pauseOnFocusLoss
+                          draggable
+                          pauseOnHover
+                          theme="colored"
+                          // transition={Bounce}
+                      />
+                      }
                     </form>
                     
                     <p className="text-xs text-gray-500 mt-4">
