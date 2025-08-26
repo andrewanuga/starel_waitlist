@@ -4,10 +4,11 @@ import feature1 from "../assets/reading.png";
 import feature2 from "../assets/store.png";
 import feature3 from "../assets/business.png";
 import { ToastContainer, toast } from 'react-toastify';
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Dropdown from '@/components/Dropdown';
 
 const HomePage = () => {
+  const waitlistRef = useRef(null); // Renamed 'waitlist' to 'waitlistRef' for clarity
   const solutions = [
     {
       title: "Unclear lecture explanations and late course materials",
@@ -98,12 +99,18 @@ const HomePage = () => {
                               theme: "colored",
     });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Email submitted:', email);
     setIsSubmitted(true);
     setPosition(prev => prev + 1);
   };
+  
+  // New function to handle smooth scroll
+  const handleJoinWaitlistClick = () => {
+    waitlistRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
 
   const waitlistBenefits = [
     {
@@ -157,7 +164,8 @@ const HomePage = () => {
             <img src={heroImage} alt="Starel Platform Preview" className="" />
           </div>
         </div>
-        <button className="w-full h-14 max-w-[1000px] cursor-pointer transition-all duration-150 hover:saturate-150 shadow shadow-gray-200/50 outline-gray-300 rounded-full flex justify-center bg-gradient-to-r from-violet-500 mt-10 to-gray-100 items-center">Join the WaitList</button>
+        {/* Updated button with onClick handler */}
+        <button onClick={handleJoinWaitlistClick} className="w-full h-14 max-w-[1000px] cursor-pointer transition-all duration-150 hover:saturate-150 shadow shadow-gray-200/50 outline-gray-300 rounded-full flex justify-center bg-gradient-to-r from-violet-500 mt-10 to-gray-100 items-center">Join the WaitList</button>
       </section>
 
       {/* Problem Section */}
@@ -251,6 +259,7 @@ const HomePage = () => {
       </section>
 
       {/* Waitlist Section */}
+      {/* Added ref to the section */}
       <section className="py-16 bg-gradient-to-r from-purple-50 to-indigo-50">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-[40px] font-bold text-center mb-4 text-gray-900">
@@ -372,7 +381,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <div className="w-full py-4 text-center border-t text-purple-50 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg">
+      <div ref={waitlistRef} className="w-full py-4 text-center border-t text-purple-50 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg">
         <div className="container mx-auto px-4">
           <p className="text-sm">
             Copyright © 2025 <span className="font-semibold">Starel</span> |
