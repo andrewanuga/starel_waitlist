@@ -8,7 +8,7 @@ import { useState, useRef } from "react";
 import Dropdown from '@/components/Dropdown';
 
 const HomePage = () => {
-  const waitlistRef = useRef(null); // Renamed 'waitlist' to 'waitlistRef' for clarity
+  const waitlistRef = useRef<HTMLDivElement>(null); // Renamed 'waitlist' to 'waitlistRef' for clarity
   const solutions = [
     {
       title: "Unclear lecture explanations and late course materials",
@@ -99,7 +99,7 @@ const HomePage = () => {
                               theme: "colored",
     });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Email submitted:', email);
     setIsSubmitted(true);
@@ -108,7 +108,9 @@ const HomePage = () => {
   
   // New function to handle smooth scroll
   const handleJoinWaitlistClick = () => {
-    waitlistRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (waitlistRef.current) {
+      waitlistRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
 
@@ -324,21 +326,6 @@ const HomePage = () => {
                       >
                         Join Waitlist
                       </button>
-                      {email &&
-                        <ToastContainer 
-                          position="bottom-center"
-                          autoClose={5000}
-                          hideProgressBar={false}
-                          newestOnTop={false}
-                          closeOnClick={false}
-                          rtl={false}
-                          pauseOnFocusLoss
-                          draggable
-                          pauseOnHover
-                          theme="colored"
-                          // transition={Bounce}
-                      />
-                      }
                     </form>
                     
                     <p className="text-xs text-gray-500 mt-4">
@@ -380,7 +367,21 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
+      {email &&
+        <ToastContainer 
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          // transition={Bounce}
+      />
+      }
       <div ref={waitlistRef} className="w-full py-4 text-center border-t text-purple-50 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg">
         <div className="container mx-auto px-4">
           <p className="text-sm">
