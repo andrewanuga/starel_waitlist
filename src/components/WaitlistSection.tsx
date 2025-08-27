@@ -1,228 +1,211 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FiCheck, FiUsers, FiGift, FiClock, FiArrowRight } from 'react-icons/fi';
+import { useState, forwardRef } from "react";
+import { ToastOptions } from "react-toastify";
 
-const WaitlistSection = () => {
-  const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [position, setPosition] = useState(1247); // Example position
+interface WaitlistBenefit {
+  title: string;
+  description: string;
+}
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // In a real app, you would send this to your backend
-    console.log('Email submitted:', email);
-    setIsSubmitted(true);
-    // Simulate getting a position in line
-    setPosition(prev => prev + 1);
-  };
+interface WaitlistSectionProps {
+  waitlistBenefits: WaitlistBenefit[];
+  notify: (email: string, options?: ToastOptions) => void;
+}
 
-  const benefits = [
-    {
-      icon: <FiGift className="text-2xl" />,
-      title: "Early Access",
-      description: "Be among the first to experience Starel's full features"
-    },
-    {
-      icon: <FiUsers className="text-2xl" />,
-      title: "Exclusive Community",
-      description: "Join our private community of early adopters"
-    },
-    {
-      icon: <FiClock className="text-2xl" />,
-      title: "Priority Support",
-      description: "Get dedicated support during the early access period"
-    }
-  ];
+const WaitlistSection = forwardRef<HTMLDivElement, WaitlistSectionProps>(
+  ({ waitlistBenefits, notify }, ref) => {
+    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [phone, setPhone] = useState<string>("");
+    const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+    const [position, setPosition] = useState<number>(1247);
 
-  return (
-    <section className="w-full min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 text-white py-16 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-4xl md:text-5xl font-bold mb-6"
-          >
-            Join the Starel Waitlist
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-xl text-indigo-200 max-w-2xl mx-auto mb-10"
-          >
-            Get early access to our student platform revolutionizing education and financial independence
-          </motion.p>
-        </div>
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setIsSubmitted(true);
+      setPosition((prev) => prev + 1);
+      notify(email);
+    };
 
-        <div className="flex flex-col lg:flex-row gap-10 items-start">
-          {/* Benefits Section */}
-          <div className="lg:w-1/2">
-            <h3 className="text-2xl font-bold mb-8">Why Join the Waitlist?</h3>
-            
-            <div className="space-y-6">
-              {benefits.map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex items-start gap-4 p-4 bg-white/10 rounded-xl backdrop-blur-sm"
-                >
-                  <div className="p-3 bg-indigo-700 rounded-lg">
-                    {benefit.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-1">{benefit.title}</h4>
-                    <p className="text-indigo-200">{benefit.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Stats */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-12 p-6 bg-white/5 rounded-2xl border border-white/10"
-            >
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="text-3xl font-bold">{position}+</p>
-                  <p className="text-indigo-300">People ahead of you</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold">15</p>
-                  <p className="text-indigo-300">Days until launch</p>
-                </div>
-              </div>
-              <div className="mt-4 w-full bg-indigo-800 rounded-full h-2">
-                <div 
-                  className="bg-indigo-400 h-2 rounded-full transition-all duration-1000" 
-                  style={{ width: `${Math.min(100, (position/2000)*100)}%` }}
-                ></div>
-              </div>
-              <p className="text-sm text-indigo-300 mt-2">
-                {Math.round((position/2000)*100)}% of waitlist spots filled
-              </p>
-            </motion.div>
-          </div>
-
-          {/* Form Section */}
-          <div className="lg:w-1/2 w-full">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10"
-            >
-              <AnimatePresence mode="wait">
-                {!isSubmitted ? (
-                  <motion.div
-                    key="form"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+    return (
+      <section
+        ref={ref}
+        className="py-16 bg-gradient-to-r from-purple-50 to-indigo-50"
+      >
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-[40px] font-bold text-center mb-4 text-gray-900">
+            Join the <span className="text-purple-600">Starel Waitlist</span>
+          </h2>
+          <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+            Be among the first to experience our platform revolutionizing
+            education and financial independence for Nigerian students
+          </p>
+          <div className="flex flex-col lg:flex-row gap-10">
+            {/* Benefits Column */}
+            <div className="lg:w-2/5">
+              <h3 className="text-2xl font-bold mb-6 text-gray-900">
+                Why Join Early?
+              </h3>
+              <div className="space-y-6">
+                {waitlistBenefits.map((benefit, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm border border-purple-100"
                   >
-                    <h3 className="text-2xl font-bold mb-6">Secure Your Spot</h3>
-                    <p className="text-indigo-200 mb-6">
-                      Join thousands of students waiting to transform their academic experience
+                    <div className="p-2 bg-purple-100 rounded-md">
+                      <svg
+                        className="w-5 h-5 text-purple-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M5 13l4 4L19 7"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-lg mb-1 text-gray-900">
+                        {benefit.title}
+                      </h4>
+                      <p className="text-gray-600">{benefit.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Form Column */}
+            <div className="lg:w-3/5">
+              <div className="bg-white p-8 rounded-xl shadow-sm border border-purple-100">
+                {!isSubmitted ? (
+                  <>
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900">
+                      Secure Your Spot
+                    </h3>
+                    <p className="text-gray-600 mb-6">
+                      Join thousands of students waiting to transform their
+                      academic experience
                     </p>
-                    
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-2">
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium mb-2 text-gray-700"
+                        >
+                          Name
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          value={name}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setName(e.target.value)
+                          }
+                          className="w-full px-4 py-3 bg-purple-50 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
+                          placeholder="John Doe"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="email"
+                          className="block text-sm font-medium mb-2 text-gray-700"
+                        >
                           Email Address
                         </label>
                         <input
                           type="email"
                           id="email"
                           value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent outline-none transition"
-                          placeholder="your.email@futa.edu.ng"
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setEmail(e.target.value)
+                          }
+                          className="w-full px-4 py-3 bg-purple-50 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
+                          placeholder="example@gmail.com"
                           required
                         />
                       </div>
-                      
+                      <div>
+                        <label
+                          htmlFor="phone"
+                          className="block text-sm font-medium mb-2 text-gray-700"
+                        >
+                          Phone Number
+                        </label>
+                        <input
+                          type="text"
+                          id="phone"
+                          value={phone}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setPhone(e.target.value)
+                          }
+                          className="w-full px-4 py-3 bg-purple-50 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
+                          placeholder="08123456789"
+                          required
+                        />
+                      </div>
                       <button
                         type="submit"
-                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition flex items-center justify-center gap-2"
+                        className="w-full cursor-pointer bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-4 rounded-lg transition"
                       >
-                        Join Waitlist <FiArrowRight />
+                        Join Waitlist
                       </button>
                     </form>
-                    
-                    <p className="text-xs text-indigo-300 mt-4">
-                      By joining, you agree to receive updates about Starel. We respect your privacy.
+                    <p className="text-xs text-gray-500 mt-4">
+                      By joining, you agree to receive updates about Starel. We
+                      respect your privacy.
                     </p>
-                  </motion.div>
+                  </>
                 ) : (
-                  <motion.div
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-center py-8"
-                  >
-                    <div className="w-16 h-16 bg-indigo-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <FiCheck className="text-3xl" />
+                  <div className="text-center py-4">
+                    <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <svg
+                        className="w-8 h-8 text-purple-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M5 13l4 4L19 7"
+                        ></path>
+                      </svg>
                     </div>
-                    <h3 className="text-2xl font-bold mb-4">You're on the list!</h3>
-                    <p className="text-indigo-200 mb-2">
-                      We've sent a confirmation email to <span className="font-medium">{email}</span>
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900">
+                      You're on the list!
+                    </h3>
+                    <p className="text-gray-600 mb-2">
+                      We'll send a confirmation email to{" "}
+                      <span className="font-medium">{email}</span>
                     </p>
-                    <p className="text-indigo-200 mb-6">
-                      Your position in line: <span className="font-bold">#{position}</span>
+                    <p className="text-gray-600 mb-6">
+                      Your position in line:{" "}
+                      <span className="font-bold">#{position}</span>
                     </p>
-                    <div className="bg-white/5 p-4 rounded-lg">
-                      <p className="text-sm mb-2">Share with friends to move up in line:</p>
-                      <div className="flex gap-2 justify-center">
-                        {/* Add social sharing buttons here */}
-                        <button className="p-2 bg-white/10 rounded hover:bg-white/20 transition">
-                          Twitter
-                        </button>
-                        <button className="p-2 bg-white/10 rounded hover:bg-white/20 transition">
+                    <div className="bg-purple-200 shadow-xl p-4 rounded-lg">
+                      <p className="text-sm mb-2 text-purple-700">
+                        Join our WhatsApp channel to get regular updates on our
+                        launch
+                      </p>
+                      <div className="mt-4">
+                        <button className="py-2 px-6 cursor-pointer rounded-lg bg-white border border-purple-200 hover:bg-green-500 transition">
                           WhatsApp
-                        </button>
-                        <button className="p-2 bg-white/10 rounded hover:bg-white/20 transition">
-                          Facebook
                         </button>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
-              </AnimatePresence>
-            </motion.div>
-
-            {/* Testimonials */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="mt-8"
-            >
-              <h4 className="font-semibold mb-4">What early members are saying:</h4>
-              <div className="space-y-4">
-                <div className="bg-white/5 p-4 rounded-lg">
-                  <p className="text-indigo-200 italic">"Finally a platform that understands student needs! Can't wait for the marketplace."</p>
-                  <p className="text-sm mt-2">- Tunde, FUTA</p>
-                </div>
-                <div className="bg-white/5 p-4 rounded-lg">
-                  <p className="text-indigo-200 italic">"The AI academic assistant will be a game-changer for exam preparation."</p>
-                  <p className="text-sm mt-2">- Chioma, UNILAG</p>
-                </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-};
+      </section>
+    );
+  }
+);
 
 export default WaitlistSection;
