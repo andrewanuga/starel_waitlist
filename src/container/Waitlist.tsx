@@ -4,39 +4,122 @@ import feature1 from "../assets/reading.png";
 import feature2 from "../assets/store.png";
 import feature3 from "../assets/business.png";
 import { ToastContainer, toast } from 'react-toastify';
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { Bounce } from 'react-toastify';
+import { ScrollTrigger } from 'gsap/all';
+import 'react-toastify/dist/ReactToastify.css';
 import Dropdown from '@/components/Dropdown';
 
+
+gsap.registerPlugin(ScrollTrigger);
+
 const HomePage = () => {
+
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+  const left2Ref = useRef(null);
+  
+  // Use a ref for the parent container if you want to use it as the trigger
+  // const containerRef = useRef(null);
+
+  useEffect(() => {
+    // Left-side animation
+    gsap.fromTo(leftRef.current, 
+      {
+        x: '-100%',
+        opacity: 0,
+        ease: "power2.out"
+      },
+      {
+        x: '0%',
+        opacity: 1,
+        duration: 1.2,
+        scrollTrigger: {
+          trigger: leftRef.current,
+          start: "top 80%", // Animation starts when the top of the element is 80% down from the top of the viewport
+          toggleActions: "play none none none", // Play the animation once and do not reverse or resume
+          // You can use markers to visualize the start/end points
+          // markers: true 
+        }
+      }
+    );
+    gsap.fromTo(left2Ref.current, 
+      {
+        x: '-100%',
+        opacity: 0,
+        ease: "power2.out"
+      },
+      {
+        x: '0%',
+        opacity: 1,
+        duration: 1.2,
+        scrollTrigger: {
+          trigger: left2Ref.current,
+          start: "top 80%", // Animation starts when the top of the element is 80% down from the top of the viewport
+          toggleActions: "play none none none", // Play the animation once and do not reverse or resume
+          // You can use markers to visualize the start/end points
+          // markers: true 
+        }
+      }
+    );
+
+    // Right-side animation
+    gsap.fromTo(rightRef.current, 
+      {
+        x: '100%',
+        opacity: 0,
+        ease: "power2.out"
+      },
+      {
+        x: '0%',
+        opacity: 1,
+        duration: 1.2,
+        scrollTrigger: {
+          trigger: rightRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+          // markers: true
+        }
+      }
+    );
+
+    // It's a good practice to clean up ScrollTriggers on component unmount
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+
+  }, []);
+
   const waitlistRef = useRef<HTMLDivElement>(null); // Renamed 'waitlist' to 'waitlistRef' for clarity
   const solutions = [
-    {
-      title: "Unclear lecture explanations and late course materials",
-      description: "Detailed Solutions of problems ..."
-    },
-    {
-      title: "No digital platform for student entrepreneurs",
-      description: "Detailed Solutions of problems ..."
-    },
-    {
-      title: "Difficulty recovering lost items on campus",
-      description: "Detailed Solutions of problems ..."
-    },
-    {
-      title: "Struggles with final year projects",
-      description: "Detailed Solutions of problems ..."
-    },
-    {
-      title: "Challenges securing IT placements",
-      description: "Detailed Solutions of problems ..."
-    },
-    {
-      title: "No centralized campus solution",
-      description: "Detailed Solutions of problems ..."
-    },
-  ];
+  {
+    title: "Unclear lecture explanations and late course materials",
+    description: <p>Starel addresses this by offering an <b className='text-black'>AI-powered academic assistant</b> trained on FUTA-specific data. This tool provides detailed, easy-to-understand explanations for complex lecture topics, course PDFs, and past questions. Students no longer have to struggle with confusing concepts or wait for materials to be uploaded. They can get 24/7 access to clear, concise information, empowering them to study at their own pace and get ahead in their coursework</p>
+  },
+  {
+    title: "No digital platform for student entrepreneurs",
+    description:<p>Our platform solves this by providing a dedicated <b className='text-black'>Campus Marketplace</b>. This feature allows student entrepreneurs to showcase their products and services to the entire university community, bridging the gap between creators and customers. With Starel, students can create digital storefronts, manage orders, and grow their businesses without the challenges of traditional marketing, fostering financial independence and a vibrant entrepreneurial ecosystem on campus.</p>
+  },
+  {
+    title: "Difficulty recovering lost items on campus",
+    description: <p>To tackle this common problem, Starel introduces a centralized <b className='text-black'>Lost-and-Found system</b>. This feature allows students to easily post detailed information about lost items or report found ones, including photos and contact details. By creating a single, accessible hub for all lost items, Starel significantly increases the chances of reuniting students with their belongings and reduces the stress and frustration associated with losing valuable items.</p>
+  },
+  {
+    title: "Struggles with final year projects",
+    description: <p>Starel provides comprehensive support for final year students through its <b className='text-black'>AI-powered academic module</b>. The AI assistant can help with topic research, offer guidance on structuring project reports, and provide quick explanations of complex research methodologies. This dedicated support ensures that students have the resources they need to navigate the challenging final year project process with confidence, helping them produce high-quality work and graduate on time.</p>
+  },
+  {
+    title: "Challenges securing IT placements",
+    description: <p>Our platform features a specialized <b className='text-black'>IT Placement Board</b>. This centralized board connects 400-level students with relevant IT placement opportunities, including internships and industrial training. By curating opportunities specifically for students, Starel streamlines the search process, helping them find placements that align with their field of study and career goals. It also provides a direct channel for companies to find and recruit top student talent from FUTA."</p>
+  },
+  {
+    title: "No centralized campus solution",
+    description: <p>Starel serves as the ultimate <b className='text-black'>all-in-one centralized platform</b> for the campus community. It integrates academic tools, business opportunities, and essential student services into a single, intuitive application. This eliminates the need for students to navigate multiple websites or physical offices to find information. From academic support and entrepreneurial ventures to lost-and-found services and scholarship announcements, Starel brings the entire university experience into one cohesive and easily accessible digital space.</p>
+  }
+];
 
-  const features = [
+  const featuresAcademic = [
     {
       title: "AI-Powered Academic Support",
       description:
@@ -49,6 +132,9 @@ const HomePage = () => {
       ],
       image: feature1,
     },
+    
+  ];
+  const featuredMarket = [
     {
       title: "Campus Marketplace & Services",
       description:
@@ -61,8 +147,10 @@ const HomePage = () => {
       ],
       image: feature2,
       reverse: true,
-    },
-    {
+    }
+  ]
+  const featuredBusiness = [
+      {
       title: "Sustainable Business Model",
       description:
         "Starel is designed to be financially sustainable while remaining affordable for students:",
@@ -82,10 +170,12 @@ const HomePage = () => {
       ],
       image: feature3,
     },
-  ];
+  ]
 
   // Waitlist form state
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [position, setPosition] = useState(1247);
   const notify = () => toast(email &&`✅  Joined the Starel WaitList`, {
@@ -170,7 +260,7 @@ const HomePage = () => {
         <button onClick={handleJoinWaitlistClick} className="w-full h-14 max-w-[1000px] cursor-pointer transition-all duration-150 hover:saturate-150 shadow shadow-gray-200/50 outline-gray-300 rounded-full flex justify-center bg-gradient-to-r from-violet-500 mt-10 to-gray-100 items-center">Join the WaitList</button>
       </section>
 
-      {/* Problem Section */}
+      {/*Solutions for Problem Section */}
       <section className="lg:py-40 py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-[40px] font-bold text-center mb-12 text-gray-900">
@@ -198,14 +288,132 @@ const HomePage = () => {
             <div className="max-w-7xl mx-auto px-4">
 
               <div className="space-y-20">
-                {features.map((feature, index) => (
+                {featuresAcademic.map((feature, index) => (
                   <div
                     key={index}
                     className={`flex flex-col ${
-                      feature.reverse ? "lg:flex-row-reverse" : "lg:flex-row"
+                      feature? "lg:flex-row" : "lg:flex-row"
                     } items-center gap-12`}
                   >
+                    <div ref={left2Ref} className={`w-1/2 lg:w-1/2
+                      transition-all duration-1000 ease-out
+                    `}>
+                      <img
+                        src={feature.image}
+                        alt={feature.title}
+                        className="w-full"
+                      />
+                    </div>
                     <div className="lg:w-1/2">
+                      <h3 className="text-2xl lg:text-3xl font-bold mb-4">
+                        {feature.title}
+                      </h3>
+                      <p className="text-gray-600 mb-6">
+                        {feature.description}
+                      </p>
+                      <ul className="space-y-3">
+                        {feature.items.map((item, i) =>
+                          typeof item === "string" ? (
+                            <li key={i} className="flex items-start">
+                              <svg
+                                className="w-5 h-5 text-purple-500 mt-0.5 mr-2"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M5 13l4 4L19 7"
+                                />
+                              </svg>
+                              <span>{item}</span>
+                            </li>
+                          ) : (
+                            <div
+                              key={i}
+                              className="bg-purple-50 p-4 rounded-lg"
+                            >
+                              <h4 className="font-bold text-purple-700">
+                                {item}
+                              </h4>
+                              <p className="text-gray-600">{item}</p>
+                            </div>
+                          )
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+                {featuredMarket.map((feature, index) => (
+                  <div
+                    key={index}
+                    className={`flex flex-col ${
+                      feature? "lg:flex-row-reverse" : "lg:flex-row"
+                    } items-center gap-12`}
+                  >
+                    <div ref={rightRef} className={`w-1/2 lg:w-1/2
+                      transition-all duration-1000 ease-out
+                    `}>
+                      <img
+                        src={feature.image}
+                        alt={feature.title}
+                        className="w-full"
+                      />
+                    </div>
+                    <div className="lg:w-1/2">
+                      <h3 className="text-2xl lg:text-3xl font-bold mb-4">
+                        {feature.title}
+                      </h3>
+                      <p className="text-gray-600 mb-6">
+                        {feature.description}
+                      </p>
+                      <ul className="space-y-3">
+                        {feature.items.map((item, i) =>
+                          typeof item === "string" ? (
+                            <li key={i} className="flex items-start">
+                              <svg
+                                className="w-5 h-5 text-purple-500 mt-0.5 mr-2"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M5 13l4 4L19 7"
+                                />
+                              </svg>
+                              <span>{item}</span>
+                            </li>
+                          ) : (
+                            <div
+                              key={i}
+                              className="bg-purple-50 p-4 rounded-lg"
+                            >
+                              <h4 className="font-bold text-purple-700">
+                                {item}
+                              </h4>
+                              <p className="text-gray-600">{item}</p>
+                            </div>
+                          )
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+                {featuredBusiness.map((feature, index) => (
+                  <div
+                    key={index}
+                    className={`flex flex-col ${
+                      feature? "lg:flex-row" : "lg:flex-row"
+                    } items-center gap-12`}
+                  >
+                    <div ref={leftRef} className={`w-1/2 lg:w-1/2
+                      transition-all duration-1000 ease-out
+                    `}>
                       <img
                         src={feature.image}
                         alt={feature.title}
@@ -295,7 +503,7 @@ const HomePage = () => {
 
             {/* Form Column */}
             <div className="lg:w-3/5">
-              <div className="bg-white lg:mt-12 p-8 rounded-xl shadow-sm border border-purple-100">
+              <div className="bg-white p-8 rounded-xl shadow-sm border border-purple-100">
                 {!isSubmitted ? (
                   <>
                     <h3 className="text-2xl font-bold mb-4 text-gray-900">Secure Your Spot</h3>
@@ -304,6 +512,20 @@ const HomePage = () => {
                     </p>
                     
                     <form onSubmit={handleSubmit} className="space-y-4">
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-700">
+                          Name
+                        </label>
+                        <input
+                          type="text"
+                          id="text"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="w-full px-4 py-3 bg-purple-50 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
+                          placeholder="John Doe"
+                          required
+                        />
+                      </div>
                       <div>
                         <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-700">
                           Email Address
@@ -315,6 +537,20 @@ const HomePage = () => {
                           onChange={(e) => setEmail(e.target.value)}
                           className="w-full px-4 py-3 bg-purple-50 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
                           placeholder="example@gmail.com"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-700">
+                          Phone Number
+                        </label>
+                        <input
+                          type="text"
+                          id="phone"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="w-full px-4 py-3 bg-purple-50 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition"
+                          placeholder="08123456789"
                           required
                         />
                       </div>
@@ -349,13 +585,13 @@ const HomePage = () => {
                     <div className="bg-purple-50 p-4 rounded-lg">
                       <p className="text-sm mb-2 text-gray-700">Share with friends to move up in line:</p>
                       <div className="flex gap-2 justify-center">
-                        <button className="p-2 bg-white rounded border border-purple-200 hover:bg-purple-100 transition">
+                        <button className="p-2 cursor-pointer bg-white rounded border border-purple-200 hover:bg-gray-700 hover:text-gray-100 transition">
                           Twitter
                         </button>
-                        <button className="p-2 bg-white rounded border border-purple-200 hover:bg-purple-100 transition">
+                        <button className="p-2 cursor-pointer bg-white rounded border border-purple-200 hover:bg-green-500 transition">
                           WhatsApp
                         </button>
-                        <button className="p-2 bg-white rounded border border-purple-200 hover:bg-purple-100 transition">
+                        <button className="p-2 cursor-pointer bg-white rounded border border-purple-200 hover:bg-blue-500 transition">
                           Facebook
                         </button>
                       </div>
@@ -367,19 +603,19 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      {email &&
+      {name && email && phone &&
         <ToastContainer 
           position="bottom-center"
           autoClose={5000}
-          hideProgressBar={false}
+          hideProgressBar={true}
           newestOnTop={false}
-          closeOnClick={false}
+          closeOnClick={true}
           rtl={false}
           pauseOnFocusLoss
           draggable
           pauseOnHover
           theme="colored"
-          // transition={Bounce}
+          transition={Bounce}
       />
       }
       <div ref={waitlistRef} className="w-full py-4 text-center border-t text-purple-50 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg">

@@ -1,69 +1,49 @@
-# React + TypeScript + Vite
+# Starel: The Learning Platform for Nigerian University Students
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Starel is a dedicated online learning platform designed specifically for university students across Nigeria. Our mission is to bridge the gap between classroom education and true learning by using easy-to-use platform with all the tools and resources students need to succeed in their academic journey.
 
-Currently, two official plugins are available:
+## What We Do?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+We provide a centralized hub for academic resources, collaboration that empowering students to take control of their education.
 
-## Expanding the ESLint configuration
+## Key Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Curated Academic Resources
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Access a wide range of study materials, lecture notes, past questions, and e-books tailored to the Nigerian university curriculum.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Interactive Ai Parthner for studying
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Use our interactive Ai for learning, studying and researching in academics
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Interactive MarketPlace
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Starel offers an Interactive and user friendly  online marketplace for students who want to buy and sell.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Collaborative Study Groups
+
+Connect with peers and form study groups to work on projects, discuss difficult topics, and prepare for exams together.
+
+### Progress Tracking
+
+Monitor your learning progress and stay motivated with personalized dashboards that track your completed modules and academic achievements.
+
+### Expert Tutors
+
+Get one-on-one support and guidance from verified tutors in various fields of study
+
+Mobile-Friendly Design: Our platform is optimized for mobile devices, so you can learn on the go, anytime, anywhere.
+
+## How to Join the Waitlist
+
+Starel is currently in development and we are opening up a waitlist for our first users. By joining the waitlist, you'll be among the first to get access to the platform and receive exclusive updates and early-bird benefits. Currently starel only plans on launching in Federal University of Technology Akure.
+
+## Contributing & Support
+
+We welcome contributions and feedback from the academic community. If you have any questions or suggestions, please reach out to us:
+
+Email: [mail]
+
+Social Media: [media]
+
+Thank you for your interest in Starel. We can't wait to help you excel
