@@ -1,4 +1,4 @@
-import HomePage from "./container/Waitlist";
+import HomePage from "./container/Waitlist"
 
 const App = () => {
 
