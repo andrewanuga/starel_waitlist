@@ -76,7 +76,7 @@ const HomePage = () => {
           body: JSON.stringify({
             full_name: full_name.trim(),
             email: email.trim(),
-            university: phone.trim(),
+            university: phone, // FIXED: Using the phone variable instead of non-existent university variable
             message: message.trim(),
           }),
           signal: controller.signal,
@@ -120,33 +120,46 @@ const HomePage = () => {
       console.error("Error fetching data:", error);
       
       // More specific error messages
-      if (typeof error === "object" && error !== null && "name" in error && (error).name === "AbortError") {
-        toast.error("❌ Request timed out. Please try again.", {
-          position: "bottom-center",
-          theme: "colored",
-        });
-      } else if (typeof error === "object" && error !== null && "message" in error && typeof (error).message === "string" && (error).message.includes("Failed to fetch")) {
-        toast.error("❌ Network error. Please check your connection and try again.", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      } else if (typeof error === "object" && error !== null && "message" in error && typeof (error).message === "string" && (error).message.includes("Server returned")) {
-        toast.error(`❌ Server error: ${(error).message}`, {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+      if (error instanceof Error) {
+        if (error.name === "AbortError") {
+          toast.error("❌ Request timed out. Please try again.", {
+            position: "bottom-center",
+            theme: "colored",
+          });
+        } else if (error.message.includes("Failed to fetch")) {
+          toast.error("❌ Network error. Please check your connection and try again.", {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        } else if (error.message.includes("Server returned")) {
+          toast.error(`❌ Server error: ${error.message}`, {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        } else {
+          toast.error("❌ An unexpected error occurred. Please try again.", {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
       } else {
         toast.error("❌ An unexpected error occurred. Please try again.", {
           position: "bottom-center",
@@ -315,11 +328,6 @@ const HomePage = () => {
                 click={[popUp, setPopUp]}
               />
             )}
-            <Popup
-                emsail={email}
-                position={position}
-                click={[popUp, setPopUp]}
-              />
           </div>
           <ToastContainer
             position="bottom-center"
