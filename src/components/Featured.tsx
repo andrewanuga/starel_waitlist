@@ -86,7 +86,7 @@ const Featured = () => {
       items: [
         "Simplified explanations for complex topics",
         "24/7 academic assistance",
-        "Affordable premium plans starting at ₦300/month",
+        "Affordable premium plans starting at ₦500/month",
         "Project support for final year students",
       ],
       image: feature1,
@@ -115,7 +115,7 @@ const Featured = () => {
       items: [
         {
           title: "AI Premium Plans",
-          desc: "₦300-₦1000/month for advanced features",
+          desc: "₦500-₦1000/month for advanced features",
         },
         {
           title: "Targeted Advertising",

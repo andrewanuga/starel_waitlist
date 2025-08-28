@@ -8,7 +8,7 @@ const HeroSection = ({ click }: HeroSectionProps) => {
   return (
     <div className="flex h-[75vh] justify-center flex-wrap flex-col lg:flex-row items-center gap-12">
       <div className="flex justify-evenly items-center gap-12">
-        <div className="lg:w-1/2 text-center">
+        <div className="lg:w-1/2">
           <h1 className="text-5xl font-bold text-black mb-6 leading-tight">
             The{" "}
             <span className="nata-sans bg-gradient-to-r from-white to-white bg-clip-text text-transparent">
@@ -16,7 +16,7 @@ const HeroSection = ({ click }: HeroSectionProps) => {
             </span>{" "}
             for Nigerian Students
           </h1>
-          <p className="text-white mb-8 md:text-[16px] text-xl">
+          <p className="text-white mb-8 md:text-[16px] text-md lg:text-xl">
             Starel combines AI-powered academic support, campus marketplace, and
             student services in one intuitive platform - starting with FUTA and
             expanding nationwide.
