@@ -53,7 +53,7 @@ const HomePage = () => {
           body: JSON.stringify({
             full_name,
             email,
-            university,
+            phone_number: phone,
             message,
           }),
         }
