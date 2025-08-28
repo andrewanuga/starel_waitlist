@@ -76,7 +76,7 @@ const HomePage = () => {
           body: JSON.stringify({
             full_name: full_name.trim(),
             email: email.trim(),
-            university: phone.trim(),
+            phone_number: phone.trim(),
             message: message.trim(),
           }),
           signal: controller.signal,
