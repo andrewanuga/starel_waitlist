@@ -11,7 +11,7 @@ const Popup = ({ email, position, click }: PopupProps) => {
     <div
       className={`${
         click[0] ? "hidden" : "fixed"
-      } inset-0 backdrop-blur-md bg-opacity-50 flex items-center justify-center z-50`}
+      } inset-0 z-[100000000000] backdrop-blur-md bg-opacity-50 flex items-center justify-center`}
     >
       <div
         onClick={() => click[1](!click[0])}
@@ -52,15 +52,11 @@ const Popup = ({ email, position, click }: PopupProps) => {
               Share with friends to move up in line:
             </p>
             <div className="flex gap-2 justify-center">
-              <button className="p-2 cursor-pointer bg-white rounded border border-purple-200 hover:bg-gray-700 hover:text-gray-100 transition">
-                Twitter
-              </button>
-              <button className="p-2 cursor-pointer bg-white rounded border border-purple-200 hover:bg-green-500 transition">
-                WhatsApp
-              </button>
-              <button className="p-2 cursor-pointer bg-white rounded border border-purple-200 hover:bg-blue-500 transition">
-                Facebook
-              </button>
+              <a href="https://whatsapp.com/channel/0029VbAuezD8KMqrRYcDet2o">
+                <button className="p-2 cursor-pointer bg-white rounded border border-purple-200 hover:bg-green-500 transition">
+                  WhatsApp
+                </button>
+              </a>
             </div>
           </div>
         </div>

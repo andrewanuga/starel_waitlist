@@ -14,12 +14,11 @@ import Solutions from "@/components/Solutions";
 const HomePage = () => {
   const waitlistRef = useRef<HTMLDivElement>(null);
 
-  // Waitlist form state
   const [full_name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-  const [position, setPosition] = useState(1247);
+  const [position, setPosition] = useState(1200);
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [popUp, setPopUp] = useState(false);
@@ -173,7 +172,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-indigo-50">
+    <div className="min-h-auto bg-gradient-to-b from-purple-50 to-indigo-50">
       <NavBar />
       <section className="parkinsans flex flex-wrap justify-center items-center gap-4 lg:py-40 py-20 lg:px-20 px-4 mx-auto bg-gradient-to-r from-purple-700 to-indigo-700">
         <HeroSection click={handleJoinWaitlistClick}/>
@@ -316,6 +315,11 @@ const HomePage = () => {
                 click={[popUp, setPopUp]}
               />
             )}
+            <Popup
+                emsail={email}
+                position={position}
+                click={[popUp, setPopUp]}
+              />
           </div>
           <ToastContainer
             position="bottom-center"

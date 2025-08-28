@@ -11,9 +11,6 @@ const Navbar = () => {
           Starel
         </div>
       </div>
-      <div className="border py-2 px-4 rounded-lg hover:bg-white hover:text-black">
-        <button>Contact Us</button>
-      </div>
     </nav>
   );
 };

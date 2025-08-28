@@ -6,7 +6,7 @@ interface HeroSectionProps {
 
 const HeroSection = ({ click }: HeroSectionProps) => {
   return (
-    <div className="flex h-[75vh] justify-center flex-wrap flex-col lg:flex-row items-center gap-12">
+    <div className="flex lg:h-[70vh] justify-center flex-wrap flex-col lg:flex-row items-center gap-12">
       <div className="flex justify-evenly items-center gap-12">
         <div className="lg:w-1/2">
           <h1 className="text-5xl font-bold text-black mb-6 leading-tight">
