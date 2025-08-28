@@ -76,7 +76,11 @@ const HomePage = () => {
           body: JSON.stringify({
             full_name: full_name.trim(),
             email: email.trim(),
+<<<<<<< HEAD
             university: phone, // FIXED: Using the phone variable instead of non-existent university variable
+=======
+            phone_number: phone.trim(),
+>>>>>>> 8689a01e7fd6a70eb766337558099276de229d36
             message: message.trim(),
           }),
           signal: controller.signal,
