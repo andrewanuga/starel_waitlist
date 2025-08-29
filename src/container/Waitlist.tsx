@@ -18,14 +18,20 @@ const HomePage = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-  const [position, setPosition] = useState(1200);
   const [loading, setLoading] = useState(false);
+  const [position, setPosition] = useState<number | null>(1200);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [popUp, setPopUp] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleSubmit = () => {
-    setPosition((prev) => prev + 1);
-    setPopUp(true);
+    // Reset form fields
+    setName("");
+    setEmail("");
+    setPhone("");
+    setMessage("");
+    setPosition((prev) => (prev !== null ? prev + 1 : 1201)); // Increment position or set default
+    
+    // Show success toast
     toast.success(`✅ Joined the Starel WaitList`, {
       position: "bottom-center",
       autoClose: 5000,
@@ -99,7 +105,9 @@ const HomePage = () => {
       const data = await response.json();
       
       if (response.ok) {
+        // Success - show popup and reset form
         handleSubmit();
+        setShowPopup(true);
         console.log("Success:", data);
       } else {
         toast.error(`❌ Failed to join: ${data.message || "Please try again"}`, {
@@ -116,7 +124,6 @@ const HomePage = () => {
       }
     } catch (error) {
       clearTimeout(timeoutId); // Clear timeout on error
-      
       console.error("Error fetching data:", error);
       
       // More specific error messages
@@ -182,6 +189,10 @@ const HomePage = () => {
     if (waitlistRef.current) {
       waitlistRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   return (
@@ -321,11 +332,11 @@ const HomePage = () => {
           
           <div className="mt-8 text-center text-gray-600">
             {loading && <Loading />}
-            {popUp && (
+            {showPopup && (
               <Popup
                 email={email}
-                position={position}
-                click={[popUp, setPopUp]}
+                onClose={closePopup}
+                position={position || 1200}
               />
             )}
           </div>

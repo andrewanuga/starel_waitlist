@@ -3,18 +3,16 @@ import { IoMdClose } from "react-icons/io";
 interface PopupProps {
   email: string;
   position: number;
-  click: [boolean, (value: boolean) => void];
+  onClose: () => void;
 }
 
-const Popup = ({ email, position, click }: PopupProps) => {
+const Popup = ({ email, position, onClose }: PopupProps) => {
   return (
     <div
-      className={`${
-        click[0] ? "hidden" : "fixed"
-      } inset-0 z-[100000000000] backdrop-blur-md bg-opacity-50 flex items-center justify-center`}
+      className={`fixed inset-0 z-[100000000000] backdrop-blur-md bg-opacity-50 flex items-center justify-center`}
     >
       <div
-        onClick={() => click[1](!click[0])}
+        onClick={onClose}
         className="absolute top-4 p-1 bg-gray-50 rounded-full right-4 cursor-pointer text-gray-600 hover:text-gray-900"
       >
         <IoMdClose size={24} />
