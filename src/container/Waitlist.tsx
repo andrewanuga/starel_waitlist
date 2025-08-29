@@ -337,7 +337,7 @@ const HomePage = () => {
                 email={email}
                 onClose={closePopup}
                 position={position || 1200}
-              />
+              /> 
             )}
           </div>
           <ToastContainer
