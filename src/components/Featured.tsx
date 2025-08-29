@@ -1,6 +1,5 @@
 import feature1 from "../assets/reading.png";
 import feature2 from "../assets/store.png";
-import feature3 from "../assets/business.png";
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -107,28 +106,6 @@ const Featured = () => {
       reverse: true,
     },
   ];
-  const featuredBusiness = [
-    {
-      title: "Sustainable Business Model",
-      description:
-        "Starel is designed to be financially sustainable while remaining affordable for students:",
-      items: [
-        {
-          title: "AI Premium Plans",
-          desc: "₦500-₦1000/month for advanced features",
-        },
-        {
-          title: "Targeted Advertising",
-          desc: "Relevant ads from local businesses",
-        },
-        {
-          title: "Future Marketplace",
-          desc: "5-10% commission on student transactions",
-        },
-      ],
-      image: feature3,
-    },
-  ];
 
   return (
     <div className="space-y-20">
@@ -225,56 +202,6 @@ const Featured = () => {
                   <div key={i} className="bg-purple-50 p-4 rounded-lg">
                     <h4 className="font-bold text-purple-700">{item}</h4>
                     <p className="text-gray-600">{item}</p>
-                  </div>
-                )
-              )}
-            </ul>
-          </div>
-        </div>
-      ))}
-      {featuredBusiness.map((feature, index) => (
-        <div
-          key={index}
-          className={`flex flex-col ${
-            feature ? "lg:flex-row" : "lg:flex-row"
-          } items-center gap-12`}
-        >
-          <div
-            ref={leftRef}
-            className={`w-1/2 lg:w-1/2
-                      transition-all duration-1000 ease-out
-                    `}
-          >
-            <img src={feature.image} alt={feature.title} className="w-full" />
-          </div>
-          <div className="lg:w-1/2">
-            <h3 className="text-2xl lg:text-3xl font-bold mb-4">
-              {feature.title}
-            </h3>
-            <p className="text-gray-600 mb-6">{feature.description}</p>
-            <ul className="space-y-3">
-              {feature.items.map((item, i) =>
-                typeof item === "string" ? (
-                  <li key={i} className="flex items-start">
-                    <svg
-                      className="w-5 h-5 text-purple-500 mt-0.5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>{item}</span>
-                  </li>
-                ) : (
-                  <div key={i} className="bg-purple-50 p-4 rounded-lg">
-                    <h4 className="font-bold text-purple-700">{item.title}</h4>
-                    <p className="text-gray-600">{item.desc}</p>
                   </div>
                 )
               )}

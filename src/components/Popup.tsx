@@ -1,12 +1,10 @@
 import { IoMdClose } from "react-icons/io";
 
 interface PopupProps {
-  email: string;
-  position: number;
   onClose: () => void;
 }
 
-const Popup = ({ email, position, onClose }: PopupProps) => {
+const Popup = ({ onClose }: PopupProps) => {
   return (
     <div
       className={`fixed inset-0 z-[100000000000] backdrop-blur-md bg-opacity-50 flex items-center justify-center`}
@@ -17,7 +15,7 @@ const Popup = ({ email, position, onClose }: PopupProps) => {
       >
         <IoMdClose size={24} />
       </div>
-      <section className="max-w-md mx-auto fixed top-1/4 left-1/4 bg-white rounded-lg shadow-lg p-6 border border-purple-200">
+      <section className="max-w-md mx-auto fixed top-1/4 bg-white rounded-lg shadow-lg p-6 border border-purple-200">
         <div className="text-center py-4">
           <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <svg
@@ -37,17 +35,10 @@ const Popup = ({ email, position, onClose }: PopupProps) => {
           <h3 className="text-2xl font-bold mb-4 text-gray-900">
             You're on the list!
           </h3>
-          <p className="text-gray-600 mb-2">
-            We've sent a confirmation email to{" "}
-            <span className="font-medium">{email}</span>
-          </p>
-          <p className="text-gray-600 mb-6">
-            Your position in line:{" "}
-            <span className="font-bold">#{position}</span>
-          </p>
           <div className="bg-purple-50 p-4 rounded-lg">
             <p className="text-sm mb-2 text-gray-700">
-              Share with friends to move up in line:
+              Join our WhatsApp channel for real-time updates and exclusive
+              offers!:
             </p>
             <div className="flex gap-2 justify-center">
               <a href="https://whatsapp.com/channel/0029VbAuezD8KMqrRYcDet2o">

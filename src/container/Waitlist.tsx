@@ -19,7 +19,6 @@ const HomePage = () => {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [position, setPosition] = useState<number>(1200);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -29,7 +28,6 @@ const HomePage = () => {
     setEmail("");
     setPhone("");
     setMessage("");
-    setPosition(position + 1); // Increment position or set default
     
     // Show success toast
     toast.success(`✅ Joined the Starel WaitList`, {
@@ -334,9 +332,7 @@ const HomePage = () => {
             {loading && <Loading />}
             {showPopup && (
               <Popup
-                email={email}
                 onClose={closePopup}
-                position={position || 1200}
               /> 
             )}
           </div>
