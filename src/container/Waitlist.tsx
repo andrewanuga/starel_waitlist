@@ -151,7 +151,7 @@ const HomePage = () => {
             transition: Bounce,
           });
         } else if (error.message.includes("Server returned")) {
-          toast.error(`It was not You, it was us, try again`, {
+          toast.warn(`You are already on Starel WaitList, Join our whatsapp page`, {
             position: "bottom-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -161,6 +161,7 @@ const HomePage = () => {
             progress: undefined,
             theme: "colored",
           });
+        setShowPopup(true);
         } else {
           toast.warn("An unexpected error occurred. Please try again.", {
             position: "bottom-center",
