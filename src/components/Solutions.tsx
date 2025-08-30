@@ -97,7 +97,7 @@ const Solutions = () => {
   ];
 
   return (
-    <section className="lg:py-40 py-16 bg-white">
+    <section className="lg:py-40 py-16 bg-purple-50">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-[40px] font-bold text-center mb-12 text-gray-900">
           Problems We Solve for{" "}

@@ -67,7 +67,7 @@ const HomePage = () => {
     
     // Create AbortController for timeout and cleanup
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 20000); // 10 second timeout
     
     try {
       const response = await fetch(
@@ -202,9 +202,9 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-auto bg-gradient-to-b from-purple-50 to-indigo-50">
+    <div className="min-h-auto bg-purple-50">
       <NavBar />
-      <section className="parkinsans flex flex-wrap justify-center items-center gap-4 lg:py-40 py-20 lg:px-20 px-4 mx-auto bg-gradient-to-r from-purple-700 to-indigo-700">
+      <section className="parkinsans flex flex-wrap justify-center items-center gap-4 lg:py-40 py-20 lg:px-20 px-4 mx-auto bg-purple-700">
         <HeroSection click={handleJoinWaitlistClick}/>
       </section>
 
@@ -227,7 +227,7 @@ const HomePage = () => {
       </section>
 
       {/* Waitlist Section */}
-      <section className="py-16 bg-gradient-to-r from-purple-50 to-indigo-50">
+      <section className="py-16 bg-purple-50">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-[40px] font-bold text-center mb-4 text-gray-900">
             Join the <span className="text-purple-600">Starel Waitlist</span>
