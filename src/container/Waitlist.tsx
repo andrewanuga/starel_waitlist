@@ -30,7 +30,7 @@ const HomePage = () => {
     setMessage("");
     
     // Show success toast
-    toast.success(`✅ Joined the Starel WaitList`, {
+    toast.success(`Joined the Starel WaitList`, {
       position: "bottom-center",
       autoClose: 5000,
       hideProgressBar: false,
