@@ -11,7 +11,7 @@ const HeroSection = ({ click }: HeroSectionProps) => {
         <div className="lg:w-1/2">
           <h1 className="text-5xl font-bold text-black mb-6 leading-tight">
             The{" "}
-            <span className="nata-sans bg-gradient-to-r from-white to-white bg-clip-text text-transparent">
+            <span className="nata-sans bg-white bg-clip-text text-transparent">
               All-In-One Platform
             </span>{" "}
             for Nigerian Students
@@ -28,7 +28,7 @@ const HeroSection = ({ click }: HeroSectionProps) => {
       </div>
       <button
         onClick={click}
-        className="w-full h-14 max-w-[1000px] cursor-pointer transition-all duration-150 hover:saturate-150 shadow shadow-gray-200/50 outline-gray-300 rounded-full flex justify-center bg-gradient-to-r from-violet-500 lg:mt-10 mt-8 to-gray-100 items-center"
+        className="w-full h-14 max-w-[1000px] cursor-pointer font-semibold transition-all duration-150 hover:saturate-150 shadow shadow-gray-200/50 outline-gray-300 rounded-full flex justify-center bg-purple-200 lg:mt-10 mt-8 to-gray-100 items-center"
       >
         Join the WaitList
       </button>
