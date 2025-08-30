@@ -7,7 +7,7 @@ interface PopupProps {
 const Popup = ({ onClose }: PopupProps) => {
   return (
     <div
-      className={`fixed inset-0 z-[100000000000] backdrop-blur-md bg-opacity-50 flex items-center justify-center`}
+      className={`fixed inset-0 z-[100000] backdrop-blur-md bg-opacity-50 flex items-center justify-center`}
     >
       <div
         onClick={onClose}

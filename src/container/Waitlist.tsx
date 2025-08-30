@@ -345,7 +345,7 @@ const HomePage = () => {
               /> 
             )}
           </div>
-          <ToastContainer className={"z-[1000000000000000000000000000000000]"}
+          <ToastContainer className={"z-[1000000000]"}
             position="bottom-center"
             autoClose={5000}
             hideProgressBar={true}
