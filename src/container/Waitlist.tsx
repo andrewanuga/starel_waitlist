@@ -108,7 +108,7 @@ const HomePage = () => {
         setShowPopup(true);
         console.log("Success:", data);
       } else {
-        toast.error(`❌ Failed to join: ${data.message || "Please try again"}`, {
+        toast.error(`Failed to join: ${data.message || "Please try again"}`, {
           position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -127,12 +127,7 @@ const HomePage = () => {
       // More specific error messages
       if (error instanceof Error) {
         if (error.name === "AbortError") {
-          toast.error("❌ Request timed out. Please try again.", {
-            position: "bottom-center",
-            theme: "colored",
-          });
-        } else if (error.message.includes("Failed to fetch")) {
-          toast.error("❌ Network error. Please check your connection and try again.", {
+          toast.warn("Network error. Please check your connection and try again.", {
             position: "bottom-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -141,9 +136,22 @@ const HomePage = () => {
             draggable: true,
             progress: undefined,
             theme: "colored",
+            transition: Bounce,
+          });
+        } else if (error.message.includes("Failed to fetch")) {
+          toast.warn("Network error. Please check your connection and try again.", {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
           });
         } else if (error.message.includes("Server returned")) {
-          toast.error(`❌ Server error: ${error.message}`, {
+          toast.error(`It was not You, it was us, try again`, {
             position: "bottom-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -154,7 +162,7 @@ const HomePage = () => {
             theme: "colored",
           });
         } else {
-          toast.error("❌ An unexpected error occurred. Please try again.", {
+          toast.warn("An unexpected error occurred. Please try again.", {
             position: "bottom-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -166,7 +174,7 @@ const HomePage = () => {
           });
         }
       } else {
-        toast.error("❌ An unexpected error occurred. Please try again.", {
+        toast.warn("An unexpected error occurred. Please try again.", {
           position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: false,
